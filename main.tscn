@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://dlcsl2b4tiuu5"]
+
+[ext_resource type="Script" path="res://Actors/ball.gd" id="1_q7xo7"]
+[ext_resource type="Script" path="res://Actors/paddle.gd" id="2_a6fvk"]
+[ext_resource type="PackedScene" uid="uid://bky660vw4blfu" path="res://Actors/brick.tscn" id="3_p5lpf"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bam4x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60wnu"]
+size = Vector2(40, 40)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tlp0f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eber4"]
+size = Vector2(100, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ik22"]
+size = Vector2(1295, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dq2fv"]
+size = Vector2(20, 661)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ym7a3"]
+size = Vector2(1229, 20)
+
+[node name="Main" type="Node2D"]
+
+[node name="Ball" type="CharacterBody2D" parent="." node_paths=PackedStringArray("score_label", "start_text")]
+position = Vector2(570, 419)
+motion_mode = 1
+script = ExtResource("1_q7xo7")
+score_label = NodePath("../Score")
+start_text = NodePath("../StartText")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+scale = Vector2(40, 40)
+texture = SubResource("CanvasTexture_bam4x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_60wnu")
+
+[node name="SlowMo" type="Timer" parent="Ball"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Paddle" type="CharacterBody2D" parent="."]
+position = Vector2(695, 579)
+motion_mode = 1
+script = ExtResource("2_a6fvk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Paddle"]
+scale = Vector2(100, 40)
+texture = SubResource("CanvasTexture_tlp0f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle"]
+shape = SubResource("RectangleShape2D_eber4")
+
+[node name="Left_wall3" type="StaticBody2D" parent="."]
+position = Vector2(296, -351)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left_wall3"]
+position = Vector2(297, 334)
+shape = SubResource("RectangleShape2D_8ik22")
+
+[node name="Left_wall2" type="StaticBody2D" parent="."]
+position = Vector2(1178, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left_wall2"]
+position = Vector2(-13, 321)
+shape = SubResource("RectangleShape2D_dq2fv")
+
+[node name="Left_wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left_wall"]
+position = Vector2(-13, 321)
+shape = SubResource("RectangleShape2D_dq2fv")
+
+[node name="Brick" parent="." instance=ExtResource("3_p5lpf")]
+position = Vector2(347, 73)
+
+[node name="Brick2" parent="." instance=ExtResource("3_p5lpf")]
+position = Vector2(461, 74)
+
+[node name="Brick3" parent="." instance=ExtResource("3_p5lpf")]
+position = Vector2(907, 76)
+
+[node name="Brick4" parent="." instance=ExtResource("3_p5lpf")]
+position = Vector2(575, 74)
+
+[node name="Brick5" parent="." instance=ExtResource("3_p5lpf")]
+position = Vector2(686, 74)
+
+[node name="Brick6" parent="." instance=ExtResource("3_p5lpf")]
+position = Vector2(797, 75)
+
+[node name="Score" type="RichTextLabel" parent="."]
+offset_left = 19.0
+offset_top = 20.0
+offset_right = 203.0
+offset_bottom = 78.0
+theme_override_font_sizes/normal_font_size = 40
+text = "SCORE: 0"
+
+[node name="StartText" type="RichTextLabel" parent="."]
+offset_left = 509.0
+offset_top = 343.0
+offset_right = 864.0
+offset_bottom = 397.0
+pivot_offset = Vector2(367, 116)
+theme_override_font_sizes/normal_font_size = 40
+text = "[CLICK TO START]"
+
+[node name="GameOver" type="StaticBody2D" parent="." groups=["GameOver"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameOver"]
+position = Vector2(578.5, 687)
+shape = SubResource("RectangleShape2D_ym7a3")
